@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sans's Music</title>
+    <link rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" 
+          integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" 
+          crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body onload="myFunction()">
+    <div id="loading"></div>
+    <div class="main_div">
+        <div class="music_container">
+            <h2 id="title"><b>Desi Kalakar</b></h2>
+            <h3 id="artist"> Yo Yo Honey Singh</h3>
+            <div class="img_container">
+                <img src="images/desi_kalakar.png" alt="pretty_girl">
+            </div>
+            <audio src="music/desi_kalakar.mp3"></audio>
+            <!-- progress bar -->
+
+            <div class="progressbar_container" id="progess_container">
+                <div class="progress_duration_meter">
+                    <div id="current_time">
+                        0:00
+                    </div>
+                    <div id="duration">
+                       4:18 
+                    </div>
+                </div>
+                <div class="progress_div" id="progress_div">
+                    <div class="progress" id="progress">
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- controls -->
+            <div class="music_controls">
+                <i class="fas fa-backward" id="prev" title="Previous"></i>
+                <i class="fas fa-play-circle fa-4x main_button" id="play" title="Play"></i>
+                <i class="fas fa-forward" id="next" title="Next"></i>
+            </div>
+        </div>
+    </div>
+    <script>
+        const music = document.querySelector('audio');
+        const img = document.querySelector('img');
+        const play = document.getElementById('play');
+        const title = document.getElementById('title');
+        const artist = document.getElementById('artist');
+        const prev = document.getElementById('prev');
+        const next = document.getElementById('next');
+        let progress = document.getElementById('progress');
+        let total_duration = document.getElementById('duration');
+        let current_time = document.getElementById('current_time');
+        const progress_div = document.getElementById('progress_div');
+        var preloader = document.getElementById('loading');
+        function myFunction(){
+            preloader.style.display = 'none';
+        }
+        
+        const songs = [
+             {
+                name: "desi_kalakar",
+                title:  "Desi Kalakar",
+                artist: "Yo Yo Honey Singh"
+            },
+            
+            {
+                name: "sun_saathiya",
+                title:  "Sun Saathiya",
+                artist: "Divya Kumar, Priya Saraiya"
+            },
+           {
+                name: "main_jaandiyan",
+                title:  "Main Jaandiyan",
+                artist: "Meet Bros, Neha Bhasin"
+            },
+            {
+                name: "hook_up",
+                title:  "Hook UP",
+                artist: "Neha Kakkar,Shekhar Ravjiani"
+            },
+            {
+                name: "hosana",
+                title:  "Hosana",
+                artist: "A.R.Rahman"
+            },
+            {
+                name: "tum_hi_ho",
+                title:  "Tum Hi HO",
+                artist: "Arjit Singh"
+            },
+            {
+                name: "koi_haseena",
+                title:  "Koi Haseena Jab",
+                artist: "Anand Bakshi"
+            },
+            {
+                name: "hum_tumhe_chahate_hai",
+                title:  "Hum Tumhe Chahate hai",
+                artist: "Manhar , Kumari , Anand"
+            },
+            {
+                name: "liggi",
+                title:  "Liggi",
+                artist: "Ritviz"
+            },
+            {
+                name: "leja_re",
+                title:  "Leja Re",
+                artist: "Dhavni Bhanushali"
+            },
+            {
+                name: "makhna",
+                title:  "Makhana",
+                artist: "Asses Kaur , Tanishk , Yasser Desai"
+            },
+            {
+                name: "kabhi_jo_badal_barse",
+                title:  "Kabhi Jo Badal Barse",
+                artist: "Arjit Singh"
+            },
+            {
+                name: "proper_patola",
+                title:  "Proper Patola",
+                artist: "Diljit Dosanjh"
+            },
+            {
+                name: "mere_sohneya",
+                title:  "Mere Sohneya",
+                artist: "Sachet Tandon , Parampara Thakur"
+            },
+            {
+                name: "tera_ban_jaunga",
+                title:  "Tera Ban Jaunga",
+                artist: "Tulsi Kumar , Akhil Sachdeva"
+            },
+            {
+                name: "pachtaoge",
+                title:  "Pachtaoge",
+                artist: "Arjit Singh"
+            },
+            {
+                name: "photo",
+                title:  "Photo",
+                artist: "Karan Sehmbi"
+            },
+            {
+                name: "bekhayli",
+                title:  "Bekhayli",
+                artist: "Sachet Tandon"
+            },
+            {
+                name: "hawa_banke",
+                title:  "Hawa Banake",
+                artist: "Darshan Rawal"
+            },
+            {
+                name: "dhadkan",
+                title:  "Dhadkan",
+                artist: "Alka Yagnik, Kumar Sanu"
+            },
+            {
+                name: "laare",
+                title:  "Laare",
+                artist: "Maninder Buttar"
+            },
+            {
+                name: "sakhiyan",
+                title:  "Sakhiyaan",
+                artist: "Maninder Buttar"
+            },
+            {
+                name: "dooriyan",
+                title:  "Dooriyan",
+                artist: "Dino James"
+            },
+            {
+                name: "wishlist",
+                title:  "Wishlist",
+                artist: "Dino James"
+            },
+            {
+                name: "teri_naar",
+                title:  "Teri Naar",
+                artist: "Nikk"
+            },
+
+
+        ]
+        
+        let isPlaying = false;
+
+        // for play 
+        const playMusic = ()=>{
+            isPlaying = true;
+            music.play();
+            play.classList.replace('fa-play-circle','fa-pause');
+            img.classList.add('anime');
+        };
+ 
+        //for pause        
+        const pauseMusic = ()=>{
+            isPlaying = false;
+            music.pause();
+            play.classList.replace('fa-pause','fa-play-circle');
+            img.classList.remove('anime');
+        };
+        play.addEventListener('click',()=>{
+            isPlaying ? pauseMusic() : playMusic();
+        });
+
+        //changing Music
+        const loadSong = (songs) =>{
+            title.textContent = songs.title;
+            artist.textContent = songs.artist;
+            music.src = "music/"+songs.name+".mp3"
+            img.src = "images/"+songs.name+".png"
+        };
+        songIndex = 0;
+      //  loadSong(songs[0]);
+        const nextSong = ()=>{
+            songIndex  = (songIndex + 1 ) % songs.length;
+          loadSong(songs[songIndex]);  
+          playMusic();
+
+        }
+        const prevSong = ()=>{
+            songIndex  = (songIndex - 1  + songs.length) % songs.length;
+          loadSong(songs[songIndex]);  
+          playMusic();
+        }
+
+        //progress bar
+
+        music.addEventListener('timeupdate',(event) =>{
+            const {currentTime,duration} = event.srcElement;
+            let progress_time = (currentTime/duration)*100;
+            progress.style.width = `${progress_time}%`;
+            //music final duration time update
+            let min_duration = Math.floor(duration/ 60);
+            let sec_duration = Math.floor(duration% 60);
+           let tot_duration = `${min_duration}:${sec_duration}`;
+           if(duration){
+            total_duration.textContent =`${tot_duration}`;
+           }
+          
+            //music current time update
+            let min_currentTime = Math.floor(currentTime/ 60);
+            let sec_currentTime = Math.floor(currentTime% 60);
+          
+           if(sec_currentTime < 10){
+               sec_currentTime = `0${sec_currentTime}`;
+           }
+           let tot_currentTime = `${min_currentTime}:${sec_currentTime}`;
+            current_time.textContent =`${tot_currentTime}`;
+          
+
+            })
+           //progress on clicking anywhere
+           progress_div.addEventListener('click',(event)=>{
+               const {duration} = music;
+               let move_progress = (event.offsetX / event.srcElement.clientWidth)* duration;
+               music.currentTime = move_progress;
+
+           })
+
+
+            //if ends next song play
+
+            music.addEventListener('ended',nextSong);
+        next.addEventListener('click',nextSong);
+        prev.addEventListener('click',prevSong);
+
+    </script>
+</body>
+</html>
